@@ -13,6 +13,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.regex.Pattern;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -42,7 +43,8 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //유효성 검사
-                boolean checkValue = checkCorrectValues();
+                //boolean checkValue = checkCorrectValues();
+                boolean checkValue = true;
                 if(checkValue){
                     //회원가입 코드
                     SignUpRequestThread t = new SignUpRequestThread();
@@ -66,17 +68,19 @@ public class SignUpActivity extends AppCompatActivity {
                 String email = signupEmail.getText().toString();
 
 
-                String data = "memId=" + id + "&memPw=" + password + "&memName=" + name + "&memPhone=" + phone + "%memEmail" + email;
+                String data = "memId=" + id + "&memPw=" + password + "&memName=" + URLEncoder.encode(name, "utf-8") + "&memPhone=" + phone + "&memEmail=" + URLEncoder.encode(email, "utf-8");
 
                 //Get 방식
-                URL url = new URL(String.format("http://172.16.6.8:8087/farmstory/msignup.action?" + data));// URL클래스의 생성자로 주소를 넘겨준다.
+                URL url = new URL(String.format("http://172.16.6.8:8087/farmstory/msignup.action?%s", data));// URL클래스의 생성자로 주소를 넘겨준다.
+
                 HttpURLConnection con = (HttpURLConnection)url.openConnection();// 해당 주소의 페이지로 접속을 하고, 단일 HTTP 접속을 하기위해 캐스트한다.
                 con.setRequestMethod("GET");// POST방식으로 요청한다.( 기본값은 GET )
                 int responseCode = con.getResponseCode();
                 if (responseCode == 200) { // 정상 응답일 경우
-                    BufferedReader br = new BufferedReader( new InputStreamReader( con.getInputStream(), "EUC-KR" ), con.getContentLength() );
+                    BufferedReader br = new BufferedReader( new InputStreamReader( con.getInputStream(), "utf-8" ), con.getContentLength() );
                     String result = br.readLine();
                     br.close();
+
 
                     if (result.equals("success")) {
                         //회원가입 성공 코드
