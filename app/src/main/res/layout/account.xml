@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <EditText
+        android:id="@+id/inputId"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:hint="ID" />
+
+    <EditText
+        android:id="@+id/inputPw"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:hint="Password"
+        android:layout_below="@+id/inputId" />
+
+    <Button
+        android:id="@+id/signInButton"
+        android:layout_width="150dp"
+        android:layout_height="55dp"
+        android:layout_below="@+id/inputPw"
+        android:layout_marginTop="20dp"
+        android:layout_toLeftOf="@+id/signUpButton"
+        android:layout_toStartOf="@+id/signUpButton"
+        android:text="Log in"
+        android:textAllCaps="false" />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="55dp"
+        android:text="Sign up"
+        android:id="@+id/signUpButton"
+        android:textAllCaps="false"
+        android:layout_alignTop="@+id/signInButton"
+        android:layout_alignEnd="@+id/inputPw"
+        android:layout_alignRight="@+id/inputPw" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Remember login"
+        android:id="@+id/checkBox"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/signInButton"
+        android:layout_centerHorizontal="true" />
+
+
+</RelativeLayout>
+
+
