@@ -1,11 +1,14 @@
 package com.farmstory.iot2.project_farm;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -30,6 +33,12 @@ public class AccountActivity extends AppCompatActivity {
     private EditText mPassword;
     Account account;
 
+
+    //자동로그인 버튼
+    CheckBox checkBox;
+    SharedPreferences setting;
+    SharedPreferences.Editor editor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +51,35 @@ public class AccountActivity extends AppCompatActivity {
         mSignUpButton = (Button) findViewById(R.id.signUpButton);
         mId = findViewById(R.id.inputId);
         mPassword = findViewById(R.id.inputPw);
+
+        //자동로그인
+        checkBox = (CheckBox)findViewById(R.id.checkBox);
+        setting = getSharedPreferences("setting", 0);
+        editor=setting.edit();
+
+        if(setting.getBoolean("checkBox_enabled", false)){
+            mId.setText(setting.getString("ID", ""));
+            mPassword.setText(setting.getString("PW", ""));
+            checkBox.setChecked(true);
+        }
+
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    String ID = mId.getText().toString();
+                    String PW = mPassword.getText().toString();
+                    editor.putBoolean("checkBox_enabled", true);
+                    editor.commit();
+                }else{
+//                    editor.remove("ID");
+//                    editor.remove("PW");
+//                    editor.remove("checkBox_enabled");
+                    editor.clear();
+                    editor.commit();
+                }
+            }
+        });
 
         mSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +97,9 @@ public class AccountActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
 
     class SignInRequestThread extends Thread {
         @Override
