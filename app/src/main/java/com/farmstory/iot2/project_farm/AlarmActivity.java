@@ -19,6 +19,7 @@ public class AlarmActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
                 Intent intent = new Intent(v.getContext(), SelectMenuActivity.class);
                 startActivity(intent);
             }
