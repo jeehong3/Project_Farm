@@ -17,7 +17,6 @@ public class SelectMenuActivity extends AppCompatActivity {
         setContentView(R.layout.select_menu);
 
         getSupportActionBar().setTitle("FarmStory");
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xFF339999));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
      mplantSelected=(Button) findViewById(R.id.plantSelected);
