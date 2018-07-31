@@ -147,11 +147,19 @@ public class AccountActivity extends AppCompatActivity {
                 if (responseCode == 200) { // 정상 응답일 경우
                     boolean result = processResult(con);
 
+
+
                     if (result) {
                         //로그인 성공 코드
+
+                        Intent sIntent = new Intent(AccountActivity.this, AlarmService.class);
+                        sIntent.putExtra("member", account);
+                        startService(sIntent);
+
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+
                                 finish();
                                 Intent intent = new Intent(AccountActivity.this, SelectMenuActivity.class);
                                 intent.putExtra("member", account);
