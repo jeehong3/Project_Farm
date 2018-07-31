@@ -10,8 +10,7 @@ import android.widget.Button;
 public class SelectMenuActivity extends AppCompatActivity {
 
     Button mplantSelected;
-    Button mDiarySelected;
-    Button mValue;
+    Button value;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,10 +20,8 @@ public class SelectMenuActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("FarmStory");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
      mplantSelected=(Button) findViewById(R.id.plantSelected);
-     mDiarySelected = findViewById(R.id.diarySelected);
-     mValue = findViewById(R.id.value);
+     value = findViewById(R.id.value);
 
         mplantSelected.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,7 +34,7 @@ public class SelectMenuActivity extends AppCompatActivity {
             }
         });
 
-        mValue.setOnClickListener(new View.OnClickListener() {
+        value.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
