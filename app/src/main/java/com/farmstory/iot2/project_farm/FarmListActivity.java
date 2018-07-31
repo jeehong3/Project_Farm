@@ -1,8 +1,14 @@
 package com.farmstory.iot2.project_farm;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,23 +35,47 @@ public class FarmListActivity extends AppCompatActivity {
     private TextView mLogText;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_farm_list); //xml내용을 읽어서 화면으로 사용
+    public boolean onCreateOptionsMenu(Menu menu) {
 
-        getSupportActionBar().setTitle("FarmStory");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        // menu xml -> 객체(inflate)
+        // menu에 추가
+        getMenuInflater().inflate(R.menu.menu_overflow,menu);
 
-        mLogText = findViewById(R.id.log);
+        return super.onCreateOptionsMenu(menu);
+    }
 
-        mPlants = new ArrayList<>();
-        mPlantListAdapter = new PlantListAdapter(mPlants, this, R.layout.plant_item_view);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.logout:
+                new AlertDialog.Builder(this/* 해당 액티비티를 가르킴 */)
+                        .setTitle("로그아웃").setMessage("로그아웃 하시겠습니까?")
+                        .setPositiveButton("로그아웃", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
 
-        mPlantListView = findViewById(R.id.plant_list);
+                                SharedPreferences prefs = getSharedPreferences("account", 0);
+                                SharedPreferences.Editor editor = prefs.edit();
+                                editor.putBoolean("autologin", false);
+                                editor.remove("memId");
+                                editor.remove("memPw");
+                                editor.remove("memEmail");
 
-        mPlantListView.setAdapter(mPlantListAdapter);
+                                editor.commit();
 
-        loadPlants();
+                                Intent i = new Intent(FarmListActivity.this/*현재 액티비티 위치*/ , AccountActivity.class/*이동 액티비티 위치*/);
+                                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                startActivity(i);
+                            }
+                        })
+                        .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+
+                            }
+                        })
+                        .show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void loadPlants() {

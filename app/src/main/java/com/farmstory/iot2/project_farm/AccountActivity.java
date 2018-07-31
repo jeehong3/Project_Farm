@@ -36,50 +36,79 @@ public class AccountActivity extends AppCompatActivity {
 
     //자동로그인 버튼
     CheckBox checkBox;
-    SharedPreferences setting;
-    SharedPreferences.Editor editor;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.account);
 
+//        SharedPreferences prefs = getSharedPreferences("account", MODE_PRIVATE);
+//        boolean autoLogin = prefs.getBoolean("autologin", false);
+//        if (autoLogin) {
+//            finish();
+//            account = new Account();
+//            account.setMemId(prefs.getString("memId", ""));
+//            account.setMemEmail(prefs.getString("memEmail", ""));
+//            Intent intent = new Intent(AccountActivity.this, SelectMenuActivity.class);
+//            intent.putExtra("member", account);
+//
+//            startActivity(intent);
+//            return;
+//        }
+
         getSupportActionBar().setTitle("FarmStory");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mSignInButton = (Button) findViewById(R.id.signInButton);
-        mSignUpButton = (Button) findViewById(R.id.signUpButton);
+        mSignInButton =  findViewById(R.id.signInButton);
+        mSignUpButton = findViewById(R.id.signUpButton);
         mId = findViewById(R.id.inputId);
         mPassword = findViewById(R.id.inputPw);
 
-        //자동로그인
-        checkBox = (CheckBox)findViewById(R.id.checkBox);
-        setting = getSharedPreferences("setting", 0);
-        editor=setting.edit();
+        ////////////////////////////////////////////////////////////////////////////////
 
-        if(setting.getBoolean("checkBox_enabled", false)){
-            mId.setText(setting.getString("ID", ""));
-            mPassword.setText(setting.getString("PW", ""));
+        //자동로그인
+        checkBox = findViewById(R.id.checkBox);
+
+        SharedPreferences prefs = getSharedPreferences("account", MODE_PRIVATE);
+        boolean autoLogin = prefs.getBoolean("autologin", false);
+        if (autoLogin) {
             checkBox.setChecked(true);
+            mId.setText(prefs.getString("memId", ""));
+            mPassword.setText(prefs.getString("memPw", ""));
+
+            SignInRequestThread t = new SignInRequestThread();
+            t.start();
+            return;
         }
 
-        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    String ID = mId.getText().toString();
-                    String PW = mPassword.getText().toString();
-                    editor.putBoolean("checkBox_enabled", true);
-                    editor.commit();
-                }else{
-//                    editor.remove("ID");
-//                    editor.remove("PW");
-//                    editor.remove("checkBox_enabled");
-                    editor.clear();
-                    editor.commit();
-                }
-            }
-        });
+
+
+
+//        setting = getSharedPreferences("setting", 0);
+//        editor=setting.edit();
+//
+//        if(setting.getBoolean("checkBox", false)){
+//            mId.setText(setting.getString("ID", ""));
+//            mPassword.setText(setting.getString("PW", ""));
+//            checkBox.setChecked(true);
+//        }
+//
+//        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                    if(checkBox.isChecked()){
+//                    String ID = mId.getText().toString();
+//                    String PW = mPassword.getText().toString();
+//                    editor.putBoolean("checkBox", true);
+//                    editor.commit();
+//                }else{
+////                    editor.remove("ID");
+////                    editor.remove("PW");
+////                    editor.remove("checkBox_enabled");
+//                    editor.clear();
+//                    editor.commit();
+//                }
+//            }
+//        });
 
         mSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,13 +152,20 @@ public class AccountActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Intent sIntent = new Intent(AccountActivity.this, AlarmService.class);
-                                sIntent.putExtra("member", account);
-                                startService(sIntent);
-
                                 finish();
                                 Intent intent = new Intent(AccountActivity.this, SelectMenuActivity.class);
                                 intent.putExtra("member", account);
+
+                                if (checkBox.isChecked()) {
+                                    SharedPreferences prefs = getSharedPreferences("account", 0);
+                                    SharedPreferences.Editor editor = prefs.edit();
+                                    editor.putBoolean("autologin", true);
+                                    editor.putString("memId", account.getMemId());
+                                    editor.putString("memPw", mPassword.getText().toString());
+                                    editor.putString("memEmail", account.getMemEmail());
+                                    editor.commit();
+                                }
+
                                 startActivity(intent);
                             }
                         });
