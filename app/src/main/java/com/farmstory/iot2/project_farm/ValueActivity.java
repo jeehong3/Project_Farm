@@ -199,7 +199,7 @@ public class ValueActivity extends Activity {
                         }
 
                         if (layout3.getChildCount() > 1) {
-                            layout4.removeViews(1, 7);
+                            layout3.removeViews(1, 7);
                         }
                         for (int j = 0; j < 28; j++) {
 
