@@ -26,10 +26,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".AccountActivity" />
-        <activity android:name=".SignUpActivity"/>
+        <activity android:name=".SignUpActivity" />
         <activity android:name=".SelectMenuActivity" />
         <activity android:name=".FarmListActivity" />
-
+        <activity android:name=".ValueActivity" />
     </application>
 
 </manifest>

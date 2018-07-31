@@ -10,6 +10,7 @@ import android.widget.Button;
 public class SelectMenuActivity extends AppCompatActivity {
 
     Button mplantSelected;
+    Button value;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +22,7 @@ public class SelectMenuActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
      mplantSelected=(Button) findViewById(R.id.plantSelected);
+     value = findViewById(R.id.value);
 
         mplantSelected.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,5 +35,16 @@ public class SelectMenuActivity extends AppCompatActivity {
             }
         });
 
+        value.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent valueView;
+                valueView = new Intent(v.getContext(), ValueActivity.class);
+                startActivity(valueView);
+            }
+        });
+
     }
+
 }
