@@ -30,6 +30,10 @@
         <activity android:name=".SelectMenuActivity" />
         <activity android:name=".FarmListActivity" />
         <activity android:name=".ValueActivity" />
+
+        <service android:name=".AlarmService" />
+
+        <activity android:name=".AlarmActivity"></activity>
     </application>
 
 </manifest>

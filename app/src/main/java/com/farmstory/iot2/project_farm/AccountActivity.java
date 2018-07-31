@@ -82,6 +82,10 @@ public class AccountActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                Intent sIntent = new Intent(AccountActivity.this, AlarmService.class);
+                                sIntent.putExtra("member", account);
+                                startService(sIntent);
+
                                 finish();
                                 Intent intent = new Intent(AccountActivity.this, SelectMenuActivity.class);
                                 intent.putExtra("member", account);
