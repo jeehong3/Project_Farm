@@ -13,6 +13,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 public class SelectMenuActivity extends AppCompatActivity {
 
     Button mplantSelected;
@@ -29,14 +32,13 @@ public class SelectMenuActivity extends AppCompatActivity {
         mplantSelected=(Button) findViewById(R.id.plantSelected);
         mdiraySelected=(Button) findViewById(R.id.diarySelected);
 
+
         mplantSelected.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent selectPlant;
                 selectPlant = new Intent(v.getContext(), FarmListActivity.class);
                 startActivity(selectPlant);
-
             }
         });
 
