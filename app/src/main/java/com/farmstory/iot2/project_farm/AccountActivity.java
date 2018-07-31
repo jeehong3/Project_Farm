@@ -36,7 +36,6 @@ public class AccountActivity extends AppCompatActivity {
         setContentView(R.layout.account);
 
         getSupportActionBar().setTitle("FarmStory");
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xFF339999));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mSignInButton = (Button) findViewById(R.id.signInButton);

@@ -34,7 +34,6 @@ public class FarmListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_farm_list); //xml내용을 읽어서 화면으로 사용
 
         getSupportActionBar().setTitle("FarmStory");
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xFF339999));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mLogText = findViewById(R.id.log);
