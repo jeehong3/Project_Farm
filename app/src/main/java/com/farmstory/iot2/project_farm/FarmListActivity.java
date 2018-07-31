@@ -53,5 +53,4 @@ public class FarmListActivity extends AppCompatActivity {
 
     }
 
-
 }

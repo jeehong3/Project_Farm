@@ -33,7 +33,8 @@
 
         <service android:name=".AlarmService" />
 
-        <activity android:name=".AlarmActivity"></activity>
+        <activity android:name=".AlarmActivity" />
+        <activity android:name=".DiaryActivity" />
     </application>
 
 </manifest>

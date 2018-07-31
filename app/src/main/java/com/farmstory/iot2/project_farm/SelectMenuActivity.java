@@ -1,5 +1,6 @@
 package com.farmstory.iot2.project_farm;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -45,8 +46,9 @@ public class SelectMenuActivity extends AppCompatActivity {
         mdiraySelected.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
+                Intent selectPlant;
+                selectPlant = new Intent(v.getContext(), DiaryActivity.class);
+                startActivity(selectPlant);
             }
         });
 
